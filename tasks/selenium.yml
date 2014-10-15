@@ -22,7 +22,7 @@
   notify: selenium_reload
 
 - name: selenium | Install init script
-  template: src=selenium-server-{{ ansible_distribution }}-{{ ansible_architecture }} dest=/etc/init.d/selenium_{{ selenium_sel_role }} owner=root group=root mode=755
+  template: src=selenium-server dest=/etc/init.d/selenium_{{ selenium_sel_role }} owner=root group=root mode=755
   tags: ['config']
   notify: selenium_started
  
