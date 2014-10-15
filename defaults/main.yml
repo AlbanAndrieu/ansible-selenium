@@ -18,3 +18,10 @@ selenium_hub: ''
 selenium_java_opts: ''
 selenium_extra_args: ''
 selenium_port: ''
+tempdir: "/tmp"
+selenium_dir_tmp: "{{ tempdir.stdout }}"
+
+docker_files_generated_directory: "roles/selenium"
+docker_volume_directory: "{{ selenium_server_path }}"
+docker_working_directory: "/home/vagrant"
+docker_image_name: "nabla/ansible-selenium"
