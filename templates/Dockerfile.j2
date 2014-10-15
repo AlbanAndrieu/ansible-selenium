@@ -22,32 +22,25 @@ RUN         pwd
 RUN         ls -lrta
 
 # ADD
-ADD defaults $WORKDIR/ansible-zap/defaults
-ADD meta $WORKDIR/ansible-zap/meta
-#ADD files $WORKDIR/ansible-zap/files
-ADD handlers $WORKDIR/ansible-zap/handlers
-ADD tasks $WORKDIR/ansible-zap/tasks
-ADD templates $WORKDIR/ansible-zap/templates
-#ADD vars $WORKDIR/ansible-zap/vars
+ADD defaults $WORKDIR/ansible-selenium/defaults
+ADD meta $WORKDIR/ansible-selenium/meta
+ADD files $WORKDIR/ansible-selenium/files
+ADD handlers $WORKDIR/ansible-selenium/handlers
+ADD tasks $WORKDIR/ansible-selenium/tasks
+ADD templates $WORKDIR/ansible-selenium/templates
+ADD vars $WORKDIR/ansible-selenium/vars
 
 # Here we continue to use add because
 # there are a limited number of RUNs
 # allowed.
 ADD hosts /etc/ansible/hosts
-ADD zap.yml $WORKDIR/ansible-zap/zap.yml
+ADD selenium.yml $WORKDIR/ansible-selenium/selenium.yml
 
 # Execute
 RUN         pwd
 RUN         ls -lrta
-RUN         ansible-playbook $WORKDIR/ansible-zap/zap.yml -c local -vvvv
+RUN         ansible-playbook $WORKDIR/ansible-selenium/selenium.yml -c local -vvvv
 
-#RUN         apt-get update && \
-#            apt-get install -y openssh-server openjdk-7-jre-headless
-#RUN         useradd -m -s /bin/bash jenkins
-#RUN         echo jenkins:jenkins | chpasswd
-#RUN         mkdir -p /var/run/sshd
-            
-EXPOSE      22
-ENTRYPOINT  ["{{zap_base_dir}}/zap{{zap_major}}/zap.sh"]
-CMD /usr/sbin/sshd -D
-#CMD ["-g", "deamon off;"]
+EXPOSE 21:9999
+ENTRYPOINT  ["/etc/init.d/jboss", "start"]
+CMD ["-g", "deamon off;"]

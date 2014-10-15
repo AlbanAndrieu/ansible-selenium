@@ -18,8 +18,7 @@ selenium_hub: ''
 selenium_java_opts: ''
 selenium_extra_args: ''
 selenium_port: ''
-tempdir: "/tmp"
-selenium_dir_tmp: "{{ tempdir.stdout }}"
+selenium_dir_tmp: "/tmp" # or override with "{{ tempdir.stdout }} in order to have be sure to download the file"
 
 docker_files_generated_directory: "roles/selenium"
 docker_volume_directory: "{{ selenium_server_path }}"
