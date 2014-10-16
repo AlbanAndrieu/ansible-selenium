@@ -22,11 +22,11 @@
   notify: selenium_reload
 
 - name: selenium | Install init script
-  template: src=selenium-server dest=/etc/init.d/selenium_{{ selenium_sel_role }} owner=root group=root mode=755
+  template: src=selenium-server.sh.j2 dest=/etc/init.d/selenium_{{ selenium_sel_role }} owner=root group=root mode=755
   tags: ['config']
   notify: selenium_started
  
-- name: selenium | Install selenium tools (Debian based)
+- name: selenium | Install selenium tools
   apt: pkg={{ item }} state={{ selenium_pkg_state }} update_cache=yes
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   when: selenium_sel_role != 'hub'
@@ -39,7 +39,7 @@
    - x11-apps
    - imagemagick
 
-- name: selenium | Install browser tools specific (Debian based)
+- name: selenium | Install browser tools specific
   apt: pkg={{ item }} state={{ selenium_pkg_state }} update_cache=yes
 #specific for ubuntu 13.04 and 13.10
   when: ( ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu' )  and ( ansible_distribution_release == 'saucy' )
@@ -47,7 +47,7 @@
   with_items:
    - chromium-chromedriver
    
-- name: selenium | Install browser tools (Debian based)
+- name: selenium | Install browser tools
   apt: pkg={{ item }} state={{ selenium_pkg_state }} update_cache=yes
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
   when: selenium_sel_role != 'hub'
