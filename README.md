@@ -1,8 +1,16 @@
-## selenium
+## alban.andrieu.selenium
 
-  [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
+  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-alban.andrieu.selenium-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/1993) [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
 
+Describe your role in a few paragraphs....
 
+### Installation
+
+This role requires at least Ansible `v1.6.3`. 
+
+To install it, run:
+
+    ansible-galaxy install alban.andrieu.selenium
 
 
 
@@ -11,8 +19,7 @@
 List of default variables available in the inventory:
 
 ```yaml
-    ---
-    # Package states: present or installed or latest
+        # Package states: present or installed or latest
     selenium_pkg_state: present
     
     selenium_enabled: yes                       # Enable module
@@ -41,11 +48,14 @@ List of default variables available in the inventory:
 ```
 
 
+### Detailed usage guide
+
+Describe how to use in more detail...
 
 
 ### Authors and license
 
-`selenium` role was written by:
+`alban.andrieu.selenium` role was written by:
 - [Alban Andrieu](nabla.mobi) | [e-mail](mailto:alban.andrieu@free.fr) | [Twitter](https://twitter.com/AlbanAndrieu)
 - License: [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
 

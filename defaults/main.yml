@@ -1,4 +1,3 @@
----
 # Package states: present or installed or latest
 selenium_pkg_state: present
 

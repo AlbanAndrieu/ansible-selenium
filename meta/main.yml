@@ -1,4 +1,5 @@
 ---
+dependencies: []
 
 galaxy_info:
   author: Alban Andrieu
@@ -22,5 +23,19 @@ galaxy_info:
   categories:
   - development
   - jenkins
-dependencies: []
 
+ansigenome_info:
+  galaxy_id: '1993'
+  galaxy_user: 'alban.andrieu'
+  galaxy_name: 'selenium'
+  
+  travis: False
+
+  synopsis: |
+    Describe your role in a few paragraphs....
+
+  usage: |
+    Describe how to use in more detail...
+
+  #custom: |
+  #  Any custom output you want after the usage section..
