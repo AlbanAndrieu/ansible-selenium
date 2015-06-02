@@ -2,7 +2,7 @@
 selenium_pkg_state: present
 
 selenium_enabled: yes                       # Enable module
-selenium_server_major_version: "2.44"       # Selenium client major version
+selenium_server_major_version: "2.45"       # Selenium client major version
 selenium_server_minor_version: ".0"         # Selenium client minor version
 selenium_server_version: "{{ selenium_server_major_version }}{{ selenium_server_minor_version }}"           # Selenium client version
 
@@ -11,12 +11,13 @@ selenium_jar_file: "selenium-server-standalone-{{ selenium_server_version }}.jar
 selenium_server_path: '/usr/local/lib'
 #todo used in jenkins /var/lib/selenium/selenium.jar
 
-selenium_sel_role: standalone
+selenium_sel_role: 'hub' # or node
 
 selenium_hub: ''
+#node -hub http://home.nabla.mobi:4444/wd/register -browser browserName=firefox,version=38.0,firefox_binary=/usr/bin/firefox,maxInstances=1,platform=LINUX -browser browserName=chrome,version=39.0.2171.95,chrome_binary=/opt/google/chrome/chrome,maxInstances=1,platform=LINUX
 selenium_java_opts: ''
-selenium_extra_args: ''
-selenium_port: ''
+selenium_extra_args: '' #-trustAllSSLCertificates
+selenium_port: '4444'
 selenium_dir_tmp: "/tmp" # or override with "{{ tempdir.stdout }} in order to have be sure to download the file"
 
 docker_files_generated_directory: "./"
