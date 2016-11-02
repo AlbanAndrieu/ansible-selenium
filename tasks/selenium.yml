@@ -73,5 +73,6 @@
 - name: selenium | Cleanup temporary directory
   file: name={{ tempdir.stdout }} state=absent
   tags: selenium_setup
+  ignore_errors: yes
   changed_when: false
   become: yes
