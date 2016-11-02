@@ -3,6 +3,8 @@
 # See http://ansible.cc/docs/playbooks.html for more information about handlers.
 - name: selenium_started
   service: name=selenium_{{ selenium_sel_role }} state=started enabled=yes
+  become: yes
 
 - name: selenium_reload
   service: name=selenium_{{ selenium_sel_role }} state=reloaded
+  become: yes

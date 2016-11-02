@@ -9,14 +9,15 @@
   changed_when: false
 
 - name: selenium | Download selenium on 'master' if we don't have it
-  get_url: url={{ selenium_download_url }}  dest={{ selenium_dir_tmp }}/{{ selenium_jar_file }} force=no
+#  connection: local
+  get_url: url={{ selenium_download_url }} dest={{ selenium_server_path }}/{{ selenium_jar_file }} force=no owner=root group=root mode=755
   tags: selenium_setup
   become: yes
 
-- name: selenium | Copy selenium into place
-  copy: src={{ selenium_dir_tmp }}/{{ selenium_jar_file }}  dest={{ selenium_server_path }}/{{ selenium_jar_file }} owner=root group=root mode=755
-  tags: selenium_setup
-  become: yes
+#- name: selenium | Copy selenium into place
+#  copy: src={{ selenium_dir_tmp }}/{{ selenium_jar_file }}  dest={{ selenium_server_path }}/{{ selenium_jar_file }} owner=root group=root mode=755
+#  tags: selenium_setup
+#  become: yes
 
 - name: selenium | Install Configuration
   template: src=defaults.j2 dest=/etc/default/selenium_{{ selenium_sel_role }} owner=root group=root mode=644
