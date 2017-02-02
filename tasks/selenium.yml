@@ -15,14 +15,14 @@
   become: yes
 
 #- name: selenium | Copy selenium into place
-#  copy: src={{ selenium_dir_tmp }}/{{ selenium_jar_file }}  dest={{ selenium_server_path }}/{{ selenium_jar_file }} owner=root group=root mode=755
+#  copy: src={{ selenium_dir_tmp }}/{{ selenium_jar_file }} dest={{ selenium_server_path }}/{{ selenium_jar_file }} owner=root group=root mode=755
 #  tags: selenium_setup
 #  become: yes
 
 - name: selenium | Install Configuration
   template: src=defaults.j2 dest=/etc/default/selenium_{{ selenium_sel_role }} owner=root group=root mode=644
   tags: ['config']
-  notify: selenium_reload
+#  notify: selenium_reload
   become: yes
 
 - name: selenium | Install init script

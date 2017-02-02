@@ -5,7 +5,7 @@ selenium_pkg_state: present
 selenium_enabled: yes                       # Enable module
 selenium_server_major_version: "2.47"       # Selenium client major version
 selenium_server_minor_version: "1"         # Selenium client minor version
-selenium_server_version: "{{ selenium_server_major_version }}.{{ selenium_server_minor_version }}"           # Selenium client version
+selenium_server_version: "{{ selenium_server_major_version }}.{{ selenium_server_minor_version }}"     # Selenium client version
 
 selenium_mirror: "http://selenium-release.storage.googleapis.com/{{ selenium_server_major_version }}"
 selenium_download_url: "{{ selenium_mirror }}/{{ selenium_jar_file }}"
