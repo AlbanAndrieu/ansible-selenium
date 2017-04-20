@@ -48,7 +48,8 @@
 - name: selenium | Install browser tools specific
   action: "{{ ansible_pkg_mgr}} name={{ item }} state={{ selenium_pkg_state|default('present') }} update_cache=yes"
 #specific for ubuntu 13.04 and 13.10
-  when: ( ansible_distribution_release == 'saucy' ) and ( selenium_sel_role != 'hub' )
+#  when: ( ansible_distribution_release == 'saucy' ) and ( selenium_sel_role != 'hub' )
+  when: selenium_sel_role != 'hub'
   with_items:
    - chromium-chromedriver
   become: yes
