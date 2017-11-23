@@ -20,7 +20,8 @@ selenium_hub: ''
 selenium_java_opts: ''
 selenium_extra_args: '' #-trustAllSSLCertificates
 selenium_port: '4444'
-selenium_dir_tmp: "/tmp" # or override with "{{ tempdir.stdout }} in order to have be sure to download the file"
+#selenium_dir_tmp: "/tmp" # or override with "{{ tempdir.stdout }} in order to have be sure to download the file"
+selenium_dir_tmp: "{{ tempdir.stdout }}"
 
 docker_files_generated_directory: "./"
 docker_files_enable: no
