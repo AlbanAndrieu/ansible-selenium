@@ -1,6 +1,6 @@
 ---
 # Package states: present or installed or latest
-selenium_pkg_state: present
+util_pkg_state: present
 
 selenium_enabled: yes                       # Enable module
 selenium_server_major_version: "2.47"       # Selenium client major version

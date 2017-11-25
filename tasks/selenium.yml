@@ -11,6 +11,7 @@
 - name: selenium | Download selenium on 'master' if we don't have it
 #  connection: local
   get_url: url={{ selenium_download_url }} dest={{ selenium_server_path }}/{{ selenium_jar_file }} force=no owner=root group=root mode=755
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
   tags: selenium_setup
   become: yes
 
@@ -21,19 +22,30 @@
 
 - name: selenium | Install Configuration
   template: src=defaults.j2 dest=/etc/default/selenium_{{ selenium_sel_role }} owner=root group=root mode=644
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')  
   tags: ['config']
 #  notify: selenium_reload
   become: yes
 
 - name: selenium | Install init script
   template: src=selenium-server.sh.j2 dest=/etc/init.d/selenium_{{ selenium_sel_role }} owner=root group=root mode=755
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')  
   tags: ['config']
   notify: selenium_started
   become: yes
 
+- name: selenium | Install selenium package (Freebsd)
+  pkgng: name={{ item }} state={{ util_pkg_state|default('present') }}
+  when: (ansible_distribution == 'FreeBSD') 
+  tags: package
+  with_items:
+   - selenium
+  become: yes
+  changed_when: false
+  
 - name: selenium | Install selenium tools
-  action: "{{ ansible_pkg_mgr}} name={{ item }} state={{ selenium_pkg_state|default('present') }} update_cache=yes"
-  when: selenium_sel_role != 'hub'
+  action: "{{ ansible_pkg_mgr}} name={{ item }} state={{ util_pkg_state|default('present') }} update_cache=yes"
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and ( selenium_sel_role != 'hub' )
   with_items:
    - xfonts-100dpi
    - xfonts-75dpi
@@ -44,25 +56,54 @@
    - imagemagick
   become: yes
 
+- name: selenium | Install selenium tools (Freebsd)
+  pkgng: name={{ item }} state={{ util_pkg_state|default('present') }}
+  when: (ansible_distribution == 'FreeBSD')  and ( selenium_sel_role != 'hub' )
+  tags: package
+  with_items:
+   - www/geckodriver
+   - x11-servers/xorg-vfbserver
+   - x11-fonts/xorg-fonts
+   - x11-fonts/webfonts
+   - x11/xauth
+   - x11/xkeyboard-config
+   - x11/xkbcomp
+#Clients can also be found:
+   - www/rubygem-selenium-webdriver
+   - www/py-selenium
+   - devel/p5-Test-WWW-Selenium   
+  become: yes
+  changed_when: false
+  
 #TODO download it from http://chromedriver.storage.googleapis.com/index.html?path=2.14/ instead
 - name: selenium | Install browser tools specific
   action: "{{ ansible_pkg_mgr}} name={{ item }} state={{ selenium_pkg_state|default('present') }} update_cache=yes"
 #specific for ubuntu 13.04 and 13.10
 #  when: ( ansible_distribution_release == 'saucy' ) and ( selenium_sel_role != 'hub' )
-  when: selenium_sel_role != 'hub'
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and ( selenium_sel_role != 'hub' )
   with_items:
    - chromium-chromedriver
   become: yes
 
 - name: selenium | Install browser tools
   action: "{{ ansible_pkg_mgr}} name={{ item }} state={{ selenium_pkg_state|default('present') }} update_cache=yes"
-  when: selenium_sel_role != 'hub'
   with_items:
    - firefox
+   - google-chrome-stable
 #   - chromium-browser
-# use chrome-stable
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and ( selenium_sel_role != 'hub' )
   become: yes
 
+- name: selenium | Install browser tools (Freebsd)
+  pkgng: name={{ item }} state={{ util_pkg_state|default('present') }}
+  become: yes
+  when: (ansible_distribution == 'FreeBSD') 
+  tags: package
+  with_items:
+   - www/firefox
+   - www/chromium
+  changed_when: false
+  
 #TODO by hand for Ubuntu saucy
 #better is to us Jenkins plugins that is intalling chromedriver
 #cd /usr/lib/chromium-browser
